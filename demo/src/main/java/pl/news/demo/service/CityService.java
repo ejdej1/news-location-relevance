@@ -26,7 +26,6 @@ public class CityService {
 
             while (( line = br.readLine()) != null ) {
                 String[] data = line.split(";");
-                System.out.println(data[0]);
                 City city = new City();
                 city.setCityName(data[0]);
                 city.setStateName(data[1]);

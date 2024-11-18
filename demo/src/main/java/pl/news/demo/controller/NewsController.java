@@ -1,4 +1,5 @@
 package pl.news.demo.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,24 +10,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import pl.news.demo.model.City;
-import pl.news.demo.service.CityService;
+import pl.news.demo.model.News;
+import pl.news.demo.service.NewsService;
+
 
 @RestController
-@RequestMapping("/cities")
-public class CityController {
+@RequestMapping("/news")
+public class NewsController {
 
     @Autowired
-    private CityService cityService;
+    private NewsService newsService;
 
     @GetMapping("/all")
-    public List<City> getCities() {
-        return cityService.getAllCities(); 
+    public List<News> getNews() {
+        return newsService.getAllNews(); 
     }
 
     @PostMapping("/import")
-    public String importCities(@RequestParam("file") MultipartFile file) {
-        cityService.importCities(file);
-        return "Cities imported successfully!";
+    public String importNews(@RequestParam("file") MultipartFile file) {
+        newsService.importNews(file);
+        return "News imported successfully!";
     }
+
 }
