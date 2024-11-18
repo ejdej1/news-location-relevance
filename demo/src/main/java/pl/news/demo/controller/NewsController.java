@@ -32,4 +32,10 @@ public class NewsController {
         return "News imported successfully!";
     }
 
+    @PostMapping("/classify")
+    public String classifyNews() {
+        newsService.classifyAndLinkNews();
+        return "News classified";
+    }
+
 }

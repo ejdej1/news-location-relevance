@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class News {
@@ -30,6 +32,13 @@ public class News {
 
     @Column(length = 2083)
     private String sourceUrl;
+
+    @Column
+    private String classification;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
     public News() {}
 
@@ -89,5 +98,21 @@ public class News {
 
     public void setSourceUrl(String sourceUrl) {
         this.sourceUrl = sourceUrl;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
+    }
+
+    public City getCity () {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 }
