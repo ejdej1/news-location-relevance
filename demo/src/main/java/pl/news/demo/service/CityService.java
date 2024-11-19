@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,10 @@ public class CityService {
 
     public List<City> getAllCities() {
         return cityRepository.findAll(); 
+    }
+
+    public Optional<City> getCityByCityNameAndStateName (String cityName, String stateName) {
+        return cityRepository.findByCityNameAndStateName(cityName, stateName);
     }
 
 }

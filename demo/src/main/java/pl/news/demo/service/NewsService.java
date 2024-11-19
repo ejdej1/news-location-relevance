@@ -170,7 +170,11 @@ public class NewsService {
 
     public List<News> getNewsForCity (String cityName, String stateName) {
         City city = cityRepository.findByCityNameAndStateName(cityName, stateName)
-            .orElseThrow(() -> new RuntimeException("Location not found"));
+            .orElse(null);
+
+        if (city == null) {
+            return new ArrayList<>(); 
+        }
 
         return newsRepository.findAllByCityId(city.getId());
     } 
@@ -178,7 +182,6 @@ public class NewsService {
     public List<News> getGlobalNews () {
         return newsRepository.findAllByClassification("Global");
     }
-
 
     public List<News> getAllNews() {
         return newsRepository.findAll(); 
