@@ -3,6 +3,7 @@ package pl.news.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,4 +39,18 @@ public class NewsController {
         return "News classified";
     }
 
+    @GetMapping("/city")
+    public ResponseEntity<List<News>> getNewsByCity(
+        @RequestParam String cityName,
+        @RequestParam String stateName
+    ) {
+        List<News> newsList = newsService.getNewsForCity(cityName, stateName);
+        return ResponseEntity.ok(newsList);
+    }
+
+    @GetMapping("/global")
+    public ResponseEntity<List<News>> getGlobalNews() {
+        List<News> newsList = newsService.getGlobalNews();
+        return ResponseEntity.ok(newsList);
+    } 
 }

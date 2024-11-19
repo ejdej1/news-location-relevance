@@ -84,8 +84,8 @@ public class NewsService {
         // Fetch unclassified news
         List<News> unclassifiedNews = newsRepository.findAllByClassification(null);
 
-        if (!unclassifiedNews.isEmpty()) {
-            News newsToClassify = unclassifiedNews.get(4); // Access the second news item
+      /*   if (!unclassifiedNews.isEmpty()) {
+             News newsToClassify = unclassifiedNews.get(4); // Access the second news item
             String classificationResponse = openAiService.classifyNews(newsToClassify.getTitle(), newsToClassify.getContent());
             
             System.out.println("Classification Response: " + classificationResponse);
@@ -122,33 +122,67 @@ public class NewsService {
 
         } else {
             System.out.println("No unclassified news found.");
-        }
-/* 
+        }*/
+
         for (News news : unclassifiedNews) {
             String classificationResponse = openAiService.classifyNews(news.getTitle(), news.getContent());
-            System.out.println(classificationResponse);
+            System.out.println("Classification Response: " + classificationResponse);
             
             //Parse classification
             boolean isGlobal = classificationResponse.contains("Global");
             news.setClassification(isGlobal ? "Global" : "Local");
 
             if (!isGlobal) {
-                // Extract and match city
-                String location = classificationResponse.split("Location:")[1].trim();
-                String matchedCityName = locationMatcher.matchLocation(location);
+                String location = null;
 
-                if (matchedCityName != null) {
-                    Optional<City> city = cityRepository.findByCityNameIgnoreCase(matchedCityName);
-                    city.ifPresent(news::setCity);
+                if (classificationResponse.contains("Location (if Local):")) {
+                    location = classificationResponse.split("Location \\(if Local\\):")[1].trim();
+                } else if (classificationResponse.contains("Location:")) {
+                    location = classificationResponse.split("Location:")[1].trim();
+                } 
+
+                if (location != null) {
+                     String [] locationParts = location.split(",");
+                
+                    if (locationParts.length == 2){
+                        String city = locationParts[0].trim();  
+                        String state = locationParts[1].trim();
+                        System.out.println("Checking city and state: " + city + ", " + state);
+
+                        String matchedCityName = locationMatcher.matchLocation(city, state);
+                        System.out.println("Matched City: " + matchedCityName);
+
+                        if (matchedCityName != null) {
+                            System.out.println("City matched");
+                            Optional<City> city2 = cityRepository.findByCityNameAndStateName(matchedCityName, state);
+                            city2.ifPresent(news::setCity);
+                        }
+                    } else {
+                        System.out.println("Location format is invalid. Expected 'City, State'");
+                    }
+                } else {
+                    System.out.println("Eerror while splitting the location" +  classificationResponse); 
                 }
             }
-
              newsRepository.save(news);
-        } */
+        } 
     }
+
+    public List<News> getNewsForCity (String cityName, String stateName) {
+        City city = cityRepository.findByCityNameAndStateName(cityName, stateName)
+            .orElseThrow(() -> new RuntimeException("Location not found"));
+
+        return newsRepository.findAllByCityId(city.getId());
+    } 
+
+    public List<News> getGlobalNews () {
+        return newsRepository.findAllByClassification("Global");
+    }
+
 
     public List<News> getAllNews() {
         return newsRepository.findAll(); 
     }
+
 
 }

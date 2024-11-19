@@ -8,4 +8,5 @@ import pl.news.demo.model.News;
 
 public interface NewsRepository extends JpaRepository<News, Long> {
     List<News> findAllByClassification(String classification);
+    List<News> findAllByCityId(Long city_id);
 }
