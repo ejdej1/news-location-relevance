@@ -24,3 +24,5 @@ Deadline: 4 working days from when the task is shared.
 
 ### Cities dataset
 https://simplemaps.com/data/us-cities
+### News dataset
+I couldn't find good news dataset in the web so I used python for scraping the popular local news websties in US.
