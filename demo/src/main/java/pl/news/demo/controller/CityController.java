@@ -16,7 +16,7 @@ import pl.news.demo.model.City;
 import pl.news.demo.service.CityService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://news-frontend-ejdej.s3.eu-north-1.amazonaws.com")
 @RequestMapping("/cities")
 public class CityController {
 
