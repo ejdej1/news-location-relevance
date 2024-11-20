@@ -154,7 +154,7 @@ public class NewsService {
 
                         if (matchedCityName != null) {
                             System.out.println("City matched");
-                            Optional<City> city2 = cityRepository.findByCityNameAndStateName(matchedCityName, state);
+                            Optional<City> city2 = cityRepository.findByCityNameIgnoreCaseAndStateNameIgnoreCase(matchedCityName, state);
                             city2.ifPresent(news::setCity);
                         }
                     } else {
@@ -169,7 +169,7 @@ public class NewsService {
     }
 
     public List<News> getNewsForCity (String cityName, String stateName) {
-        City city = cityRepository.findByCityNameAndStateName(cityName, stateName)
+        City city = cityRepository.findByCityNameIgnoreCaseAndStateNameIgnoreCase(cityName, stateName)
             .orElse(null);
 
         if (city == null) {

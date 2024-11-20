@@ -24,7 +24,7 @@ function Header({ handleFetchNews }: HeaderProps) {
     };
 
     return (
-        <div className="w-full bg-blue-300 p-4 sm:p-6">
+        <div className="w-full bg-[#b9cfe8] p-4 sm:p-6">
             <section className="max-w-lg mx-auto flex flex-col sm:flex-row sm:items-center gap-3">
                 <input 
                     className="flex-1 py-2 px-3 rounded-md w-full sm:w-auto border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"

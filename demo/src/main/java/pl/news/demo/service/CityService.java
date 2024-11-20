@@ -46,7 +46,7 @@ public class CityService {
     }
 
     public Optional<City> getCityByCityNameAndStateName (String cityName, String stateName) {
-        return cityRepository.findByCityNameAndStateName(cityName, stateName);
+        return cityRepository.findByCityNameIgnoreCaseAndStateNameIgnoreCase(cityName, stateName);
     }
 
 }

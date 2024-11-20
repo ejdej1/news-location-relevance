@@ -19,7 +19,7 @@ public class LocationMatcher {
             return null;
         }
 
-        Optional<City> city = cityRepository.findByCityNameAndStateName(location.trim(), state.trim());
+        Optional<City> city = cityRepository.findByCityNameIgnoreCaseAndStateNameIgnoreCase(location.trim(), state.trim());
         return city.map(City::getCityName).orElse(null);
     }
 }
