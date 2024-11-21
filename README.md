@@ -14,13 +14,6 @@ Your goal is the following:
  - Determines what location the news belongs to
  - Assigns the news to a location from 1. 
 
-Deliverable: 
-- FE and BE code that allows you to search for your location from point 1. On FE we should be able to see news from those locations. Host it on AWS and share the link.
-- FE - React, BE use Java.s 
-
-p
-Deadline: 4 working days from when the task is shared.
-
 
 ### Cities dataset
 https://simplemaps.com/data/us-cities
